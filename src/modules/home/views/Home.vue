@@ -1,13 +1,14 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="@/assets/warren-logo.png" />
-    <HelloWorld msg="Accelereate Transactions Vue.js Challenge!" />
-  </div>
+	<div class="container">
+		<Header />
+		<Transactions />
+	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/modules/home/components/HelloWorld.vue";
+import Header from '@/components/header/Header.vue';
+import Transactions from '@/modules/home/components/Transactions.vue';
 
 //Exemplo 1 de uso do store
 import { namespace } from "vuex-class";
@@ -18,7 +19,8 @@ import { HomeModule } from "@/modules/home/store";
 
 @Component({
   components: {
-    HelloWorld,
+    Header,
+		Transactions
   },
 })
 export default class Home extends Vue {
@@ -33,14 +35,4 @@ export default class Home extends Vue {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-
 </style>
