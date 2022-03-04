@@ -1,6 +1,6 @@
 <template>
 	<div class="wrapper">
-		<DataTable class="wrapper__table" :columns="columns" :loadData="getData" showDivider/>
+		<DataTable data-testid="table" class="wrapper__table" :columns="columns" :loadData="getData" showDivider/>
 	</div>
 </template>
 
