@@ -10,6 +10,7 @@ import { DataTable, BaseIcon } from '@warrenbrasil/nebraska-web';
 import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
 import IconEye from '../icon-eye/IconEye.vue';
+import { translateDate } from '@/helpers/translateDate';
 import * as parse from './transactions-parse'
 
 @Component({
@@ -29,7 +30,7 @@ export default class Transactions extends Vue {
 		},
 		{
 			label: 'Data',
-			getter: parse.translateDate,
+			getter: translateDate,
 			sort: 'date'
 		}, {
 			label: 'Valor',

@@ -12,11 +12,6 @@ export const getStatus = (statusType: IStatus) => {
   return status[statusType] || status["default"];
 };
 
-export const translateDate = ({date}:ITransaction): string => {
-	const dateArray: string[] = date.toString().split('-')
-	return `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
-}
-
 export const translateAmount = ({amount}: ITransaction): string => {
 	return new convertToBrazilianHelper().convert(amount);
 }
