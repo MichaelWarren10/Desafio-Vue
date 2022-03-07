@@ -48,4 +48,38 @@ describe('<Transactions />', () => {
 		
 		expect(text).toBeTruthy();
 	});
+
+	it("should show date in format 04/03/2022", async () => {
+    jest
+      .spyOn(HomeService.prototype, "getTransactions")
+      .mockResolvedValue(mockTransaction);
+
+    await renderTransactions();
+    const td = await screen.findByText('04/03/2022');
+
+    expect(td).toBeTruthy();
+  });
+
+
+	it("should show amount in format R$ 2078,66", async () => {
+		jest
+			.spyOn(HomeService.prototype, "getTransactions")
+			.mockResolvedValue(mockTransaction);
+
+		await renderTransactions();
+		const td = await screen.findByText("R$ 2.078,66");
+
+		expect(td).toBeTruthy();
+	});
+
+	it("should show status as Concluído", async () => {
+    jest
+      .spyOn(HomeService.prototype, "getTransactions")
+      .mockResolvedValue(mockTransaction);
+
+    await renderTransactions();
+    const td = await screen.findByText("Concluído");
+
+    expect(td).toBeTruthy();
+  });
 });
