@@ -11,7 +11,8 @@ import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
 import IconEye from '../icon-eye/IconEye.vue';
 import { translateDate } from '@/helpers/translateDate';
-import * as parse from './transactions-parse'
+import { translateAmount } from '@/helpers/translateAmount';
+import { translateStatus } from '@/helpers/translateStatus';
 
 @Component({
 	components: {
@@ -34,14 +35,14 @@ export default class Transactions extends Vue {
 			sort: 'date'
 		}, {
 			label: 'Valor',
-			getter: parse.translateAmount,
+			getter: translateAmount,
 			sort: 'amount'
 		}, {
 			label: 'Descrição',
 			getter: 'from'
 		}, {
 			label: 'Situação',
-			getter: parse.translateStatus
+			getter: translateStatus
 		}
 	]
 
