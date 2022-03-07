@@ -7,10 +7,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { DataTable, BaseIcon } from '@warrenbrasil/nebraska-web';
-import { HomeService } from '../services/index';
-import { ITransaction } from '../interfaces/transaction';
-import { convertToBrazilianHelper } from '@/helpers/convertNumber';
-import IconEye from './IconEye.vue';
+import { HomeService } from '../../services/index';
+import { ITransaction } from '../../interfaces/transaction';
+import IconEye from '../icon-eye/IconEye.vue';
+import * as parse from './transactions-parse'
 
 @Component({
 	components: {
@@ -29,18 +29,18 @@ export default class Transactions extends Vue {
 		},
 		{
 			label: 'Data',
-			getter: this.translateDate,
+			getter: parse.translateDate,
 			sort: 'date'
 		}, {
 			label: 'Valor',
-			getter: this.translateAmount,
+			getter: parse.translateAmount,
 			sort: 'amount'
 		}, {
 			label: 'Descrição',
 			getter: 'from'
 		}, {
 			label: 'Situação',
-			getter: this.translateStatus
+			getter: parse.translateStatus
 		}
 	]
 
@@ -50,40 +50,7 @@ export default class Transactions extends Vue {
 		} catch {
 			throw new Error('Ocurred an error on get data')
 		}
-	}
-
-	private translateDate({date}:ITransaction): string {
-		const dateArray: string[] = date.toString().split('-')
-		return `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
-	}
-
-	private translateAmount({amount}: ITransaction): string {
-		return new convertToBrazilianHelper().convert(amount);
-	}
-
-	private translateStatus({status}: ITransaction) {
-		return ({
-			tag: {
-				text: this.getStatus(status),
-				success: status.toLowerCase() === 'created',
-				alert: status.toLowerCase() === 'processing',
-				info: status.toLowerCase() === 'processed'
-			}
-		})
-	}
-
-	private getStatus(status:string): string {
-		switch(status) {
-			case 'created':
-				return 'Concluído';
-			case 'processed':
-				return 'Agendado';
-			case 'processing':
-				return 'Processando';
-			default:
-				return '';
-		}
-	}
+	}	
 }
 </script>
 

@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Header from '@/components/header/Header.vue';
-import Transactions from '@/modules/home/components/Transactions.vue';
+import Transactions from '@/modules/home/components/transactions/Transactions.vue';
 
 //Exemplo 1 de uso do store
 import { namespace } from "vuex-class";
