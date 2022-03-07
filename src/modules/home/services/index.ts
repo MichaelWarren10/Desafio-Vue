@@ -1,19 +1,14 @@
 import { Api } from '@/services/api';
+import { ITransaction } from '../interfaces/transaction';
 
 export class HomeService extends Api {
-    constructor() {
-        super()
-    }
+  public baseUrl = "https://warren-transactions-api.herokuapp.com/api";
 
-    public getDataHome() : string {
-        return 'home';
-    }
+  constructor() {
+    super();
+  }
 
-    /**
-     * Examplo de função de api
-     *
-     * public getDataHome() : Promise<MyInterface> {
-     *   return this.get('/api/v1/home');
-     * }
-    */
+  public getTransactions(): Promise<ITransaction[]> {
+    return this.get(`${this.baseUrl}/transactions`);
+  }
 }

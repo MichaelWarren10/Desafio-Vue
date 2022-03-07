@@ -1,5 +1,5 @@
 <template>
-  <ContextColorProvider id="app">
+  <ContextColorProvider id="app" context="brand">
     <router-view />
   </ContextColorProvider>
 </template>
@@ -20,4 +20,5 @@ export default class App extends Vue {}
 @import '~@warrenbrasil/nebraska-tokens-web/assets/colors.css';
 @import '~@warrenbrasil/nebraska-tokens-web/assets/spacings.css';
 @import '~@warrenbrasil/nebraska-tokens-web/assets/typography.css';
+@import './reset.css';
 </style>
