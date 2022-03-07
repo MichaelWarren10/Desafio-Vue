@@ -11,8 +11,8 @@ import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
 import IconEye from '../icon-eye/IconEye.vue';
 import { translateDate } from '@/helpers/translateDate';
-import { translateAmount } from '@/helpers/translateAmount';
 import { translateStatus } from '@/helpers/translateStatus';
+import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 
 @Component({
 	components: {
@@ -35,7 +35,7 @@ export default class Transactions extends Vue {
 			sort: 'date'
 		}, {
 			label: 'Valor',
-			getter: translateAmount,
+			getter: this.translateAmount,
 			sort: 'amount'
 		}, {
 			label: 'Descrição',
@@ -53,6 +53,10 @@ export default class Transactions extends Vue {
 			throw new Error('Ocurred an error on get data')
 		}
 	}	
+
+	public translateAmount({ amount }: ITransaction): string {
+    return convertNumbertoBrazilian(amount);
+	}
 }
 </script>
 
