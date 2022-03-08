@@ -1,6 +1,7 @@
 <template>
 	<div class="wrapper">
-		<DataTable data-testid="table" class="wrapper__table" :columns="columns" :loadData="getData" showDivider/>
+		<Search class="wrapper-search" :transactions="transactions" @filter-by-title="filterTransactions($event)"/>
+		<DataTable data-testid="table" class="wrapper__table" :columns="columns" :load-data="() => filteredtransactions" showDivider :data-params="{ filteredtransactions }"/>
 	</div>
 </template>
 
@@ -10,6 +11,7 @@ import { DataTable, BaseIcon } from '@warrenbrasil/nebraska-web';
 import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
 import IconEye from '../icon-eye/IconEye.vue';
+import Search from '../search/Search.vue';
 import { translateDate } from '@/helpers/translateDate';
 import { translateAmount } from '@/helpers/translateAmount';
 import { translateStatus } from '@/helpers/translateStatus';
@@ -18,7 +20,8 @@ import { translateStatus } from '@/helpers/translateStatus';
 	components: {
 		DataTable,
 		BaseIcon,
-		IconEye
+		IconEye,
+		Search
 	}
 })
 export default class Transactions extends Vue {
@@ -46,13 +49,28 @@ export default class Transactions extends Vue {
 		}
 	]
 
+	private transactions: ITransaction[] = []; 
+	private filteredtransactions: ITransaction[] = [];
+
+	private created() {
+		this.getData();
+	}
+
 	private async getData(): Promise<ITransaction[]> {
 		try {
-			return await this.service.getTransactions();
+			const transactions = await this.service.getTransactions();
+			this.transactions = transactions;
+			this.filteredtransactions = transactions;
+			return transactions
 		} catch {
 			throw new Error('Ocurred an error on get data')
 		}
 	}	
+
+	private filterTransactions(transactions: ITransaction[]): ITransaction[] {
+		this.filteredtransactions = transactions;
+		return transactions;
+	}
 }
 </script>
 
@@ -60,7 +78,9 @@ export default class Transactions extends Vue {
 .wrapper {
 	display: flex;
 	justify-content: center;
-	margin-top: 100px;
+	margin-top: 70px;
+	flex-direction: column;
+	align-items: center;
 }
 
 .wrapper__table {
@@ -68,6 +88,8 @@ export default class Transactions extends Vue {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	padding: 4px;
+	box-sizing: border-box;
+	margin-top: 70px;
 }
 
 @media (max-width: 740px) { 
