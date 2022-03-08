@@ -13,8 +13,8 @@ import { ITransaction } from '../../interfaces/transaction';
 import IconEye from '../icon-eye/IconEye.vue';
 import Search from '../search/Search.vue';
 import { translateDate } from '@/helpers/translateDate';
-import { translateAmount } from '@/helpers/translateAmount';
 import { translateStatus } from '@/helpers/translateStatus';
+import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 
 @Component({
 	components: {
@@ -38,7 +38,7 @@ export default class Transactions extends Vue {
 			sort: 'date'
 		}, {
 			label: 'Valor',
-			getter: translateAmount,
+			getter: this.translateAmount,
 			sort: 'amount'
 		}, {
 			label: 'Descrição',
@@ -70,6 +70,10 @@ export default class Transactions extends Vue {
 	private filterTransactions(transactions: ITransaction[]): ITransaction[] {
 		this.filteredtransactions = transactions;
 		return transactions;
+	}
+	
+	public translateAmount({ amount }: ITransaction): string {
+    return convertNumbertoBrazilian(amount);
 	}
 }
 </script>
