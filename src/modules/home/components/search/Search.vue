@@ -1,5 +1,9 @@
 <template>
-	<InputText class="wrapper__input" placeholder="Busque pelo título" leadingIcon="ic_search" @input="filterByTitle($event, transactions)"/>
+	<InputText 
+		class="wrapper__input" 
+		placeholder="Busque pelo título" 
+		leadingIcon="ic_search" 
+		@input="filterByTitle($event, transactions)"/>
 </template>
 
 <script lang="ts">

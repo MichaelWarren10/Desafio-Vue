@@ -19,8 +19,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { FilterFoundation, BaseIcon, Checkbox } from '@warrenbrasil/nebraska-web';
+import { IDropdown } from '../../interfaces/dropdown-options';
+import { PropType } from 'vue';
 
 @Component({
 	components: {
@@ -31,18 +33,9 @@ import { FilterFoundation, BaseIcon, Checkbox } from '@warrenbrasil/nebraska-web
 })
 export default class DropdownFilter extends Vue {
 	private isActive = false;
-	private options = [
-		{
-			text: 'Concluído',
-			checked: false
-		}, {
-			text: 'Processando',
-			checked: false
-		}, {
-			text: 'Processado',
-			checked: false
-		}
-	]
+
+	@Prop({type: Array as PropType<IDropdown[]>, required: true}) 
+	private options!: IDropdown[];
 }
 </script>
 

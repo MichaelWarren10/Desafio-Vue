@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="wrapper__search">
 			<Search class="wrapper__search--block" :transactions="transactions" @filter-by-title="filterTransactions($event)"/>
-			<DropdownFilter />
+			<DropdownFilter :options="options"/>
 		</div>
 		<DataTable 
 			data-testid="table" 
@@ -58,6 +58,19 @@ export default class Transactions extends Vue {
 		}, {
 			label: 'Situação',
 			getter: translateStatus
+		}
+	]
+
+	private options = [
+		{
+			text: 'Concluído',
+			checked: false
+		}, {
+			text: 'Processando',
+			checked: false
+		}, {
+			text: 'Processado',
+			checked: false
 		}
 	]
 
