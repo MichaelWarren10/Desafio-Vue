@@ -1,17 +1,27 @@
 <template>
 	<div class="wrapper">
-		<Search class="wrapper-search" :transactions="transactions" @filter-by-title="filterTransactions($event)"/>
-		<DataTable data-testid="table" class="wrapper__table" :columns="columns" :load-data="() => filteredtransactions" showDivider :data-params="{ filteredtransactions }"/>
+		<div class="wrapper__search">
+			<Search class="wrapper__search--block" :transactions="transactions" @filter-by-title="filterTransactions($event)"/>
+			<DropdownFilter />
+		</div>
+		<DataTable 
+			data-testid="table" 
+			class="wrapper__table" 
+			:columns="columns" 
+			:load-data="() => filteredtransactions" 
+			:data-params="{ filteredtransactions }"
+			showDivider />
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { DataTable, BaseIcon } from '@warrenbrasil/nebraska-web';
+import { DataTable, BaseIcon, Grid } from '@warrenbrasil/nebraska-web';
 import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
 import IconEye from '../icon-eye/IconEye.vue';
 import Search from '../search/Search.vue';
+import DropdownFilter from '../dropdown-filter/dropdown-filter.vue';
 import { translateDate } from '@/helpers/translateDate';
 import { translateStatus } from '@/helpers/translateStatus';
 import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
@@ -21,7 +31,9 @@ import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 		DataTable,
 		BaseIcon,
 		IconEye,
-		Search
+		Search,
+		Grid,
+		DropdownFilter
 	}
 })
 export default class Transactions extends Vue {
@@ -79,12 +91,24 @@ export default class Transactions extends Vue {
 </script>
 
 <style scoped>
+
 .wrapper {
 	display: flex;
-	justify-content: center;
-	margin-top: 70px;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+}
+
+.wrapper__search {
+	display: flex;
+	flex-direction: row;
+	margin-top: 70px;
+	width: 70%;
+	justify-content: space-between;
+}
+
+.wrapper__search--block {
+	width: 100%;
 }
 
 .wrapper__table {
@@ -97,8 +121,14 @@ export default class Transactions extends Vue {
 }
 
 @media (max-width: 740px) { 
-	.wrapper__table {
+	.wrapper__search {
+		flex-direction: column;
+	}
+
+	.wrapper__table, .wrapper__search{
 		width: 100%;
+	}
+	.wrapper__table {
 		overflow-x: scroll;
 	}
 }
