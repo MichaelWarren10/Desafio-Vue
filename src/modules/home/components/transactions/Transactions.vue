@@ -1,8 +1,8 @@
 <template>
 	<div class="wrapper">
 		<div class="wrapper__search">
-			<Search class="wrapper__search--block" :transactions="transactions" @filter-by-title="filterTransactions($event)"/>
-			<DropdownFilter :options="options"/>
+			<Search class="wrapper__search--block" :items="transactions" @filter-by-title="filterByTitle($event)"/>
+			<DropdownFilter :options="options" :items="transactions" @checked="filterByCheckbox($event)"/>
 		</div>
 		<DataTable 
 			data-testid="table" 
@@ -25,6 +25,7 @@ import DropdownFilter from '../dropdown-filter/dropdown-filter.vue';
 import { translateDate } from '@/helpers/translateDate';
 import { translateStatus } from '@/helpers/translateStatus';
 import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
+import { IDropdown } from '../../interfaces/dropdown-options';
 
 @Component({
 	components: {
@@ -61,21 +62,25 @@ export default class Transactions extends Vue {
 		}
 	]
 
-	private options = [
+	private options: IDropdown[] = [
 		{
 			text: 'Concluído',
+			argument: 'created',
 			checked: false
 		}, {
 			text: 'Processando',
+			argument: 'processing',
 			checked: false
 		}, {
-			text: 'Processado',
+			text: 'Agendado',
+			argument: 'processed',
 			checked: false
 		}
 	]
-
+	private selectedOptions: IDropdown[] = [];
 	private transactions: ITransaction[] = []; 
 	private filteredtransactions: ITransaction[] = [];
+	private textFilter = '';
 
 	private created() {
 		this.getData();
@@ -92,13 +97,53 @@ export default class Transactions extends Vue {
 		}
 	}	
 
-	private filterTransactions(transactions: ITransaction[]): ITransaction[] {
-		this.filteredtransactions = transactions;
+	private translateAmount({ amount }: ITransaction): string {
+		return convertNumbertoBrazilian(amount);
+	}
+
+	private searchFilter(text:string, transactions: ITransaction[]): ITransaction[] {
+		if (text.length) {
+			const filterTransactions = transactions.filter(el => 
+				el.from.toLowerCase()
+					.replace(/\s/g, '')
+					.includes(text.toLowerCase().replace(/\s/g, '')))
+			return filterTransactions;
+		}
 		return transactions;
 	}
-	
-	public translateAmount({ amount }: ITransaction): string {
-    return convertNumbertoBrazilian(amount);
+
+	private checkboxFilter($event: {options: IDropdown[], optionsChecked: IDropdown[], items: ITransaction[]}) {
+		const {options, optionsChecked, items} = $event;
+		this.options = options;
+		this.selectedOptions = optionsChecked;
+
+		let itemsFiltered: any[] = [];
+		if (optionsChecked.length) {
+			options.forEach(option => {
+				const filter = items.filter(el => el.status === option.argument && option.checked)
+				itemsFiltered.push(...filter);	
+			})
+			return itemsFiltered;
+		}
+
+		return items;
+	}
+
+	private filterByTitle($event: {text: string, items: ITransaction[]}): void {
+		const {text, items} = $event;
+		this.textFilter = text;
+		const searchFilter = this.searchFilter(text, items);
+		const checkboxFilter = this.checkboxFilter({options: this.options, optionsChecked: this.selectedOptions, items: searchFilter});
+
+		this.filteredtransactions = checkboxFilter;
+	}
+
+	private filterByCheckbox($event: {options: IDropdown[], optionsChecked: IDropdown[], items: ITransaction[]}): void {
+		const { options, optionsChecked, items } = $event;
+		const searchFilter = this.searchFilter(this.textFilter, items);
+		const checkboxFilter = this.checkboxFilter({options, optionsChecked, items: searchFilter});
+
+		this.filteredtransactions = checkboxFilter;
 	}
 }
 </script>

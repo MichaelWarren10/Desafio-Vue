@@ -3,7 +3,7 @@
 		class="wrapper__input" 
 		placeholder="Busque pelo título" 
 		leadingIcon="ic_search" 
-		@input="filterByTitle($event, transactions)"/>
+		@input="filterByTitle($event, items)"/>
 </template>
 
 <script lang="ts">
@@ -17,16 +17,12 @@ import { ITransaction } from '../../interfaces/transaction';
 	}
 })
 export default class Search extends Vue {
-	@Prop() 
-	private transactions!: ITransaction[];
+	@Prop({type: Array, required: true}) 
+	private items!: any[];
 
 	@Emit('filter-by-title')
-	private filterByTitle(text: string, transactions: ITransaction[]): ITransaction[] {
-		const filterTransactions = transactions.filter(el => 
-			el.from.toLowerCase()
-				.replace(/\s/g, '')
-				.includes(text.toLowerCase().replace(/\s/g, '')))
-		return filterTransactions;
+	private filterByTitle(text: string, items: ITransaction[]) {
+		return {text, items};
 	}
 }
 </script>

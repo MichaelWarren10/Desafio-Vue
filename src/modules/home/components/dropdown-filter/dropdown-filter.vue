@@ -11,7 +11,7 @@
 		<div v-if="isActive" class="wrapper__dropdown">
 			<ul style="list-style:none;">
 				<li v-for="(option, index) in options" :key="index">
-					<Checkbox :value="option.text" v-model="option.checked">{{ option.text }}</Checkbox>
+					<Checkbox :value="option.text" v-model="option.checked" @change="checked(options, items)">{{ option.text }}</Checkbox>
 				</li>
 			</ul>
 		</div>
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { FilterFoundation, BaseIcon, Checkbox } from '@warrenbrasil/nebraska-web';
 import { IDropdown } from '../../interfaces/dropdown-options';
 import { PropType } from 'vue';
@@ -34,8 +34,21 @@ import { PropType } from 'vue';
 export default class DropdownFilter extends Vue {
 	private isActive = false;
 
+	@Prop({type: Array, required: true})
+	private items!: any[];
+
+
 	@Prop({type: Array as PropType<IDropdown[]>, required: true}) 
 	private options!: IDropdown[];
+
+	private getOptionsChecked(options: IDropdown[]): IDropdown[] {
+		return options.filter(option => option.checked);
+	}
+
+	@Emit('checked')
+	private checked(options: IDropdown[], items: any[]) {
+		return { options, optionsChecked: this.getOptionsChecked(options), items }
+	}
 }
 </script>
 
@@ -53,7 +66,7 @@ export default class DropdownFilter extends Vue {
 		width: 220px;
 	}
 
-	@keyframes go-back {
+	@keyframes top-down {
 		from {
 			transform: translateY(-71px);
 			opacity: 0;
@@ -73,7 +86,7 @@ export default class DropdownFilter extends Vue {
 		top: 80px;
 		border-radius: 4px;
 		border: 1px solid var(--base-over-disabled);
-		animation: go-back .5s;
+		animation: top-down .5s;
 	}
 
 	.wrapper__dropdown::before {
