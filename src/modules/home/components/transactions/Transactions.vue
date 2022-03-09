@@ -1,8 +1,8 @@
 <template>
 	<div class="wrapper">
 		<div class="wrapper__search">
-			<Search class="wrapper__search--size" :items="transactions" @filter-by-title="filterByTitle($event)"/>
-			<DropdownFilter :options="options" :items="transactions" @checked="filterByCheckbox($event)"/>
+			<Search class="wrapper__search--size" :items="transactions" @filter-by-title="filterByTitle"/>
+			<DropdownFilter :options="options" :items="transactions" @checked="filterByCheckbox"/>
 		</div>
 		<DataTable 
 			data-testid="table" 
