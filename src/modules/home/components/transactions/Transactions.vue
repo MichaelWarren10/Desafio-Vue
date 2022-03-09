@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="wrapper__search">
-			<Search class="wrapper__search--block" :items="transactions" @filter-by-title="filterByTitle($event)"/>
+			<Search class="wrapper__search--size" :items="transactions" @filter-by-title="filterByTitle($event)"/>
 			<DropdownFilter :options="options" :items="transactions" @checked="filterByCheckbox($event)"/>
 		</div>
 		<DataTable 
@@ -165,7 +165,7 @@ export default class Transactions extends Vue {
 	justify-content: space-between;
 }
 
-.wrapper__search--block {
+.wrapper__search--size {
 	width: 100%;
 }
 
