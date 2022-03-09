@@ -110,7 +110,7 @@ export default class DropdownFilter extends Vue {
 	}
 
 	@media (max-width: 740px) { 
-		.wrapper__filter {
+		.wrapper__button {
 			width: 100%;
 			margin: 0;
 		}
