@@ -83,16 +83,6 @@ export default class Transactions extends Vue {
 	private textFilter = '';
 	private isLoading = true;
 
-	private test() {
-		return new Promise((resolve, reject) => {
-			if (!this.isLoading && this.filteredtransactions) {
-				resolve(this.filteredtransactions)
-			} else if (!this.isLoading) {
-				reject('Ocurred an error on get data')
-			}
-		})
-	}
-
 	private async getData(): Promise<ITransaction[]> {
 		try {
 			if (this.isLoading) { 
