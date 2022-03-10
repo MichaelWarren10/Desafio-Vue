@@ -23,6 +23,7 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { FilterFoundation, BaseIcon, Checkbox } from '@warrenbrasil/nebraska-web';
 import { IDropdown } from '../../interfaces/dropdown-options';
 import { PropType } from 'vue';
+import { IFilterCheckboxEmiterComponent } from '../../interfaces/filter-by-checkbox';
 
 @Component({
 	components: {
@@ -46,8 +47,8 @@ export default class DropdownFilter extends Vue {
 	}
 
 	@Emit('checked')
-	private checked(options: IDropdown[], items: any[]) {
-		return { options, optionsChecked: this.getOptionsChecked(options), items }
+	private checked(options: IDropdown[], items: any[]): IFilterCheckboxEmiterComponent {
+		return { options, selectedOptions: this.getOptionsChecked(options), items }
 	}
 }
 </script>

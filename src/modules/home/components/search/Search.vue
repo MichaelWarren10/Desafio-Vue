@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import { InputText } from '@warrenbrasil/nebraska-web';
-import { ITransaction } from '../../interfaces/transaction';
+import { IFilterTextEmiterComponent } from '../../interfaces/filter-by-text';
 
 @Component({
 	components: {
@@ -21,7 +21,7 @@ export default class Search extends Vue {
 	private items!: any[];
 
 	@Emit('filter-by-title')
-	private filterByTitle(text: string, items: ITransaction[]) {
+	private filterByTitle(text: string, items: any[]): IFilterTextEmiterComponent {
 		return {text, items};
 	}
 }

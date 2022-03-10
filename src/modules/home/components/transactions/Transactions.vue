@@ -1,8 +1,8 @@
 <template>
 	<div class="wrapper">
 		<div class="wrapper__search">
-			<Search class="wrapper__search--size" :items="transactions" @filter-by-title="filterByTitle"/>
-			<DropdownFilter :options="options" :items="transactions" @checked="filterByCheckbox"/>
+			<Search class="wrapper__search--size" :items="transactions" @filter-by-title="filterByTitle($event, options, selectedOptions)"/>
+			<DropdownFilter :options="options" :items="transactions" @checked="filterByCheckbox($event, textFilter)"/>
 		</div>
 		<DataTable 
 			data-testid="table" 
@@ -26,6 +26,9 @@ import { translateDate } from '@/helpers/translateDate';
 import { translateStatus } from '@/helpers/translateStatus';
 import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 import { IDropdown } from '../../interfaces/dropdown-options';
+import { searchFilter } from './transactions';
+import { IFilterTextEmiter } from '../../interfaces/filter-by-text';
+import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
 
 @Component({
 	components: {
@@ -102,24 +105,13 @@ export default class Transactions extends Vue {
 		return convertNumbertoBrazilian(amount);
 	}
 
-	private searchFilter(text:string, transactions: ITransaction[]): ITransaction[] {
-		if (text.length) {
-			const filterTransactions = transactions.filter(el => 
-				el.from.toLowerCase()
-					.replace(/\s/g, '')
-					.includes(text.toLowerCase().replace(/\s/g, '')))
-			return filterTransactions;
-		}
-		return transactions;
-	}
-
-	private checkboxFilter($event: {options: IDropdown[], optionsChecked: IDropdown[], items: ITransaction[]}) {
-		const {options, optionsChecked, items} = $event;
+	private checkboxFilter($event: {options: IDropdown[], selectedOptions: IDropdown[], items: ITransaction[]}) {
+		const {options, selectedOptions, items} = $event;
 		this.options = options;
-		this.selectedOptions = optionsChecked;
+		this.selectedOptions = selectedOptions;
 
 		let itemsFiltered: any[] = [];
-		if (optionsChecked.length) {
+		if (selectedOptions.length) {
 			options.forEach(option => {
 				const filter = items.filter(el => el.status === option.argument && option.checked)
 				itemsFiltered.push(...filter);	
@@ -130,19 +122,19 @@ export default class Transactions extends Vue {
 		return items;
 	}
 
-	private filterByTitle($event: {text: string, items: ITransaction[]}): void {
+	private filterByTitle($event: IFilterTextEmiter, options: IDropdown[], selectedOptions: IDropdown[]): void {
 		const {text, items} = $event;
 		this.textFilter = text;
-		const searchFilter = this.searchFilter(text, items);
-		const checkboxFilter = this.checkboxFilter({options: this.options, optionsChecked: this.selectedOptions, items: searchFilter});
+		const searchByText = searchFilter(text, items);
+		const checkboxFilter = this.checkboxFilter({options, selectedOptions, items: searchByText});
 
 		this.filteredtransactions = checkboxFilter;
 	}
 
-	private filterByCheckbox($event: {options: IDropdown[], optionsChecked: IDropdown[], items: ITransaction[]}): void {
-		const { options, optionsChecked, items } = $event;
-		const searchFilter = this.searchFilter(this.textFilter, items);
-		const checkboxFilter = this.checkboxFilter({options, optionsChecked, items: searchFilter});
+	private filterByCheckbox($event: IFlterCheckboxEmiter, text: string): void {
+		const { options, selectedOptions, items } = $event;
+		const searchByText = searchFilter(text, items);
+		const checkboxFilter = this.checkboxFilter({options, selectedOptions, items: searchByText});
 
 		this.filteredtransactions = checkboxFilter;
 	}
