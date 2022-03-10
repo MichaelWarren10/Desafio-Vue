@@ -8,7 +8,7 @@
 			data-testid="table" 
 			class="wrapper__table" 
 			:columns="columns" 
-			:load-data="() => filteredtransactions" 
+			:load-data="getData" 
 			:data-params="{ filteredtransactions }"
 			showDivider />
 	</div>
@@ -81,21 +81,32 @@ export default class Transactions extends Vue {
 	private transactions: ITransaction[] = []; 
 	private filteredtransactions: ITransaction[] = [];
 	private textFilter = '';
+	private isLoading = true;
 
-	private created() {
-		this.getData();
+	private test() {
+		return new Promise((resolve, reject) => {
+			if (!this.isLoading && this.filteredtransactions) {
+				resolve(this.filteredtransactions)
+			} else if (!this.isLoading) {
+				reject('Ocurred an error on get data')
+			}
+		})
 	}
 
 	private async getData(): Promise<ITransaction[]> {
 		try {
-			const transactions = await this.service.getTransactions();
-			this.transactions = transactions;
-			this.filteredtransactions = transactions;
-			return transactions
+			if (this.isLoading) { 
+				const transactions = await this.service.getTransactions();
+				this.transactions = transactions;
+				this.filteredtransactions = transactions;
+				this.isLoading = false;
+				return transactions
+			}
+			return this.filteredtransactions;
 		} catch {
 			throw new Error('Ocurred an error on get data')
 		}
-	}	
+	}
 
 	private translateAmount({ amount }: ITransaction): string {
 		return convertNumbertoBrazilian(amount);
