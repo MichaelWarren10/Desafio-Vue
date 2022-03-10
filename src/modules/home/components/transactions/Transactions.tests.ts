@@ -1,22 +1,13 @@
-import { ITransaction } from './../../interfaces/transaction';
 import { HomeService } from './../../services/index';
 import { render } from "@testing-library/vue";
 import { screen } from "@testing-library/dom";
+import { mockTransaction } from '../../mocks/mock-transactions';
 import Transactions from "./Transactions.vue";
 
-const mockTransaction: ITransaction[] = [
-  {
-    amount: 2078.66,
-    date: "2022-03-04",
-    description: "et labore proident aute nulla",
-    from: "Aposentadoria",
-    id: "5f89f9f257fe42957bf6dbfd",
-    status: "created",
-    title: "Resgate",
-  },
-];
-
 const renderTransactions = () => render(Transactions);
+jest
+  .spyOn(HomeService.prototype, "getTransactions")
+  .mockResolvedValue(mockTransaction);
 
 describe('<Transactions />', () => {
 
@@ -27,21 +18,20 @@ describe('<Transactions />', () => {
 		expect(transactions).toBeInTheDocument();
 	});
 
-	it('should render element of table correctly', async () => {
+	it('should render 3 elements with Aposentadoria text on the table', async () => {
 		jest
       .spyOn(HomeService.prototype, "getTransactions")
       .mockResolvedValue(mockTransaction);
-
 		await renderTransactions();
-		const td = await screen.findByText(/Aposentadoria/gi);
+		const transactions = 	await screen.findAllByText(/Aposentadoria/gi);
 
-		expect(td).toBeTruthy();
+		expect(transactions.length).toBe(3);
 	});
 
 	it('should throw an error', async() => {
 		jest
 			.spyOn(HomeService.prototype, "getTransactions")
-			.mockRejectedValue(new Error('Error'))
+			.mockRejectedValueOnce(new Error('Error'))
 			
 		renderTransactions();
 		const text = await screen.findByText('Um erro foi identificado');
@@ -50,11 +40,7 @@ describe('<Transactions />', () => {
 	});
 
 	it("should show date in format 04/03/2022", async () => {
-    jest
-      .spyOn(HomeService.prototype, "getTransactions")
-      .mockResolvedValue(mockTransaction);
-
-    await renderTransactions();
+    renderTransactions();
     const td = await screen.findByText('04/03/2022');
 
     expect(td).toBeTruthy();
@@ -62,10 +48,6 @@ describe('<Transactions />', () => {
 
 
 	it("should show amount in format R$ 2078,66", async () => {
-		jest
-			.spyOn(HomeService.prototype, "getTransactions")
-			.mockResolvedValue(mockTransaction);
-
 		await renderTransactions();
 		const td = await screen.findByText("R$ 2.078,66");
 
@@ -73,13 +55,9 @@ describe('<Transactions />', () => {
 	});
 
 	it("should show status as Concluído", async () => {
-    jest
-      .spyOn(HomeService.prototype, "getTransactions")
-      .mockResolvedValue(mockTransaction);
-
     await renderTransactions();
-    const td = await screen.findByText("Concluído");
+    const td = await screen.findAllByText("Concluído");
 
-    expect(td).toBeTruthy();
+    expect(td.length).toBe(4);
   });
 });
