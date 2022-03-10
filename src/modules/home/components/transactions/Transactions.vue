@@ -26,7 +26,7 @@ import { translateDate } from '@/helpers/translateDate';
 import { translateStatus } from '@/helpers/translateStatus';
 import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 import { IDropdown } from '../../interfaces/dropdown-options';
-import { searchFilter } from './transactions';
+import { filterByCheckbox, filterByTitle } from './transactions';
 import { IFilterTextEmiter } from '../../interfaces/filter-by-text';
 import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
 
@@ -105,38 +105,27 @@ export default class Transactions extends Vue {
 		return convertNumbertoBrazilian(amount);
 	}
 
-	private checkboxFilter($event: {options: IDropdown[], selectedOptions: IDropdown[], items: ITransaction[]}) {
-		const {options, selectedOptions, items} = $event;
+	private setOptions(options: IDropdown[], selectedOptions: IDropdown[]): void {
 		this.options = options;
 		this.selectedOptions = selectedOptions;
+	}
 
-		let itemsFiltered: any[] = [];
-		if (selectedOptions.length) {
-			options.forEach(option => {
-				const filter = items.filter(el => el.status === option.argument && option.checked)
-				itemsFiltered.push(...filter);	
-			})
-			return itemsFiltered;
-		}
-
-		return items;
+	private setTextFilter(text: string): void {
+		this.textFilter = text;
 	}
 
 	private filterByTitle($event: IFilterTextEmiter, options: IDropdown[], selectedOptions: IDropdown[]): void {
-		const {text, items} = $event;
-		this.textFilter = text;
-		const searchByText = searchFilter(text, items);
-		const checkboxFilter = this.checkboxFilter({options, selectedOptions, items: searchByText});
+		this.setTextFilter($event.text);
+		this.setOptions(options, selectedOptions)
 
-		this.filteredtransactions = checkboxFilter;
+		this.filteredtransactions = filterByTitle($event, options, selectedOptions);
 	}
 
 	private filterByCheckbox($event: IFlterCheckboxEmiter, text: string): void {
-		const { options, selectedOptions, items } = $event;
-		const searchByText = searchFilter(text, items);
-		const checkboxFilter = this.checkboxFilter({options, selectedOptions, items: searchByText});
+		const { options, selectedOptions } = $event;
+		this.setOptions(options, selectedOptions);
 
-		this.filteredtransactions = checkboxFilter;
+		this.filteredtransactions = filterByCheckbox($event, text);
 	}
 }
 </script>
