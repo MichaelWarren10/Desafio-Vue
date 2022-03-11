@@ -9,7 +9,7 @@
 			</template>
 		</FilterFoundation>
 		<div v-if="isActive" class="wrapper__dropdown">
-			<ul style="list-style:none;">
+			<ul class="wrapper__dropdown--list">
 				<li v-for="(option, index) in options" :key="index">
 					<Checkbox :value="option.text" v-model="option.checked" @change="checked(options, items)">{{ option.text }}</Checkbox>
 				</li>
@@ -104,6 +104,10 @@ export default class DropdownFilter extends Vue {
 		left: calc(50% - 9px);
 		top: -7px;
 		position: absolute;
+	}
+
+	.wrapper__dropdown--list {
+		list-style: none;
 	}
 
 	::v-deep {
