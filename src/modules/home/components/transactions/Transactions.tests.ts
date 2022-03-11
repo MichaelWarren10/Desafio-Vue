@@ -25,7 +25,7 @@ describe('<Transactions />', () => {
 		await renderTransactions();
 		const transactions = 	await screen.findAllByText(/Aposentadoria/gi);
 
-		expect(transactions.length).toBe(3);
+		expect(transactions).toHaveLength(3);
 	});
 
 	it('should throw an error', async() => {
@@ -58,6 +58,6 @@ describe('<Transactions />', () => {
     await renderTransactions();
     const td = await screen.findAllByText("Concluído");
 
-    expect(td.length).toBe(4);
+    expect(td).toHaveLength(4);
   });
 });

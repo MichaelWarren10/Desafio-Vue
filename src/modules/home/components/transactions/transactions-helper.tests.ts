@@ -7,25 +7,25 @@ describe('transactions-helper', () => {
 		it('should return 2 with from elemen equals to Trade', () => {
 			const result = helper.searchFilter("trade", mockTransaction);
 
-			expect(result.length).toBe(2)
+			expect(result).toHaveLength(2)
 		});
 
 		it("should return 3 with from elemen equals to Aposentadoria", () => {
       const result = helper.searchFilter("apo", mockTransaction);
 
-      expect(result.length).toBe(3);
+      expect(result).toHaveLength(3);
     });
 
 		it("should return 4 with from elemen equals to Férias", () => {
       const result = helper.searchFilter("fé", mockTransaction);
 
-      expect(result.length).toBe(4);
+      expect(result).toHaveLength(4);
     });
 
 		it("should return 2 with from elemen equals to Conta Warren", () => {
       const result = helper.searchFilter("con", mockTransaction);
 
-      expect(result.length).toBe(2);
+      expect(result).toHaveLength(2);
     });
 	});
 
@@ -39,7 +39,7 @@ describe('transactions-helper', () => {
 				}
 			]
 			const result = helper.checkboxFilter(selectedOptions, mockTransaction);
-			expect(result.length).toBe(4);
+			expect(result).toHaveLength(4);
 		});
 
 		it("should return 4 elements with processing", () => {
@@ -51,7 +51,7 @@ describe('transactions-helper', () => {
         },
       ];
       const result = helper.checkboxFilter(selectedOptions, mockTransaction);
-      expect(result.length).toBe(4);
+      expect(result).toHaveLength(4);
     });
 
 		it("should return 3 elements with processed", () => {
@@ -63,14 +63,14 @@ describe('transactions-helper', () => {
         },
       ];
       const result = helper.checkboxFilter(selectedOptions, mockTransaction);
-      expect(result.length).toBe(3);
+      expect(result).toHaveLength(3);
     });
 
 		it("should return all transactions passed as an argument since that has any option selected", () => {
 			const selectedOptions = [] as IDropdown[];
       const result = helper.checkboxFilter(selectedOptions, mockTransaction); 
 
-      expect(result.length).toBe(11);
+      expect(result).toHaveLength(11);
 		});
 	});
 
@@ -82,7 +82,7 @@ describe('transactions-helper', () => {
 				checked: true
 			}]
 			const result = helper.combinedFilter(selectedOptions, mockTransaction, 'Apo');
-			expect(result.length).toBe(1);
+			expect(result).toHaveLength(1);
 		});
 
 		it("should return 1 element equals to aposentadoria + processed", () => {
@@ -98,7 +98,7 @@ describe('transactions-helper', () => {
         mockTransaction,
         "Apo"
       );
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
 
 		it("should return 1 element equals to aposentadoria + processing", () => {
@@ -114,7 +114,7 @@ describe('transactions-helper', () => {
         mockTransaction,
         "Apo"
       );
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
     });
 	});
 });
