@@ -26,7 +26,7 @@ import { translateDate } from '@/helpers/translateDate';
 import { translateStatus } from '@/helpers/translateStatus';
 import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 import { IDropdown } from '../../interfaces/dropdown-options';
-import { filterByCheckbox, filterByTitle } from './transactions';
+import { combinedFilter } from './transactions-helper';
 import { IFilterTextEmiter } from '../../interfaces/filter-by-text';
 import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
 
@@ -115,17 +115,18 @@ export default class Transactions extends Vue {
 	}
 
 	private filterByTitle($event: IFilterTextEmiter, options: IDropdown[], selectedOptions: IDropdown[]): void {
+		const { items, text } = $event;
 		this.setTextFilter($event.text);
 		this.setOptions(options, selectedOptions)
 
-		this.filteredtransactions = filterByTitle($event, options, selectedOptions);
+		this.filteredtransactions = combinedFilter(selectedOptions, items, text);
 	}
 
 	private filterByCheckbox($event: IFlterCheckboxEmiter, text: string): void {
-		const { options, selectedOptions } = $event;
+		const { options, items, selectedOptions } = $event;
 		this.setOptions(options, selectedOptions);
 
-		this.filteredtransactions = filterByCheckbox($event, text);
+		this.filteredtransactions = combinedFilter(selectedOptions, items, text);
 	}
 }
 </script>
