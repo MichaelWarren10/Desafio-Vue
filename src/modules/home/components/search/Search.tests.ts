@@ -1,6 +1,8 @@
 import Search from './Search.vue';
 import { render } from '@testing-library/vue';
 import '@testing-library/jest-dom';
+import { mockTransaction } from "../../mocks/mock-transactions";
+import { fireEvent } from '@testing-library/vue';
 
 const propsData = {};
 
@@ -9,8 +11,16 @@ const makeWrapper = (props?: any) =>
 
 describe("<Search />", () => {
   it("should render component", async () => {
-    const wrapper = makeWrapper();
+    const wrapper = makeWrapper({ items: mockTransaction });
 
     expect(wrapper).toBeTruthy();
   });
+
+	it('should emit text and items when type', async() => {
+		const { emitted, getByPlaceholderText } = makeWrapper({ items: mockTransaction});
+		const input = getByPlaceholderText(/Busque pelo título/gi);
+		await fireEvent.update(input, 'Férias');
+
+		expect(emitted()["filter-by-title"][0][0]).toEqual({text: 'Férias', items: mockTransaction});
+	});
 });
