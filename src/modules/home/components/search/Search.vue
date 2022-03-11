@@ -2,7 +2,7 @@
 	<InputText 
 		class="wrapper__input" 
 		placeholder="Busque pelo título" 
-		leadingIcon="ic_search" 
+		leading-Icon="ic_search" 
 		@input="filterByTitle($event, items)"/>
 </template>
 
