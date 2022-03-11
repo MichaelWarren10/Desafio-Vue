@@ -10,7 +10,7 @@
 			:columns="columns" 
 			:load-data="getData" 
 			:data-params="{ filteredtransactions }"
-			showDivider />
+			show-divider />
 	</div>
 </template>
 
