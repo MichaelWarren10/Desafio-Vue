@@ -1,8 +1,7 @@
 import Search from './Search.vue';
-import { render } from '@testing-library/vue';
+import { render, fireEvent } from "@testing-library/vue";
 import '@testing-library/jest-dom';
 import { mockTransaction } from "../../mocks/mock-transactions";
-import { fireEvent } from '@testing-library/vue';
 
 const propsData = {};
 
