@@ -6,6 +6,7 @@ export interface ITransaction {
   amount: number;
   date: string;
   from: string;
+	to: string;
 }
 
 export type IStatus =	"created" | "processed" | "processing";

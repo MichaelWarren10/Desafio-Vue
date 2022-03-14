@@ -9,6 +9,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import Header from '@/components/header/Header.vue';
 import Transactions from '@/modules/home/components/transactions/Transactions.vue';
+import Search from '@/modules/home/components/search/Search.vue';
 
 //Exemplo 1 de uso do store
 import { namespace } from "vuex-class";
@@ -20,7 +21,8 @@ import { HomeModule } from "@/modules/home/store";
 @Component({
   components: {
     Header,
-		Transactions
+		Transactions,
+		Search
   },
 })
 export default class Home extends Vue {
