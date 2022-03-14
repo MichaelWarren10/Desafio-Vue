@@ -13,7 +13,7 @@ export const searchFilter = (text:string, transactions: ITransaction[]): ITransa
 }
 
 export const checkboxFilter = (selectedOptions: IDropdown[], items: ITransaction[]) => {
-	let itemsFiltered: any[] = [];
+	const itemsFiltered: any[] = [];
 	if (selectedOptions.length) {
 		selectedOptions.forEach((option) => {
       const filter = items.filter(
