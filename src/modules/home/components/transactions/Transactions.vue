@@ -11,6 +11,7 @@
 			:load-data="getData" 
 			:data-params="{ filteredtransactions }"
 			show-divider />
+		<Modal :is-open="true" />
 	</div>
 </template>
 
@@ -29,6 +30,8 @@ import { IDropdown } from '../../interfaces/dropdown-options';
 import { combinedFilter } from './transactions-helper';
 import { IFilterTextEmiter } from '../../interfaces/filter-by-text';
 import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
+import Modal from '@/modules/home/components/modal/modal.vue'
+
 
 @Component({
 	components: {
@@ -37,7 +40,8 @@ import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
 		IconEye,
 		Search,
 		Grid,
-		DropdownFilter
+		DropdownFilter,
+		Modal
 	}
 })
 export default class Transactions extends Vue {
