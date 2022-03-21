@@ -7,7 +7,7 @@
 			</div>
 		</template>
 		<div slot="content" class="modal__content">
-			<Heading v-if="transaction" class="modal__content--title" :level="2">{{ transaction.from }}</Heading>
+			<Heading v-if="transaction" class="modal__content--title" :level="2">{{ transaction.title }}</Heading>
 			<ProgressBar class="modal__content--progress-bar" :progress="handleProgress(transaction)" :height="40" progressColor="var(--theme-primary)"/>
 			<div class="modal__content--progress-info">
 				<span>Solicitada</span>
