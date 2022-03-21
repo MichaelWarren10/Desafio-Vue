@@ -1,17 +1,26 @@
 <template>
-	<BaseModal :is-open="isOpen" size="md">
+	<BaseModal :is-open="isOpen" size="lg">
 		<template v-slot:header>
 			<div class="modal__heading">
-				<BaseText size="xl" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
+				<BaseText size="md" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
 				<BaseIcon class="modal__heading--close" icon="ic_cancel" width="20px" height="20px" @click.native="closeModal"/>
 			</div>
 		</template>
-		<template v-slot:content>
-			<div class="modal__content">
-				<Heading v-if="transaction" class="modal__content--title" :level="2">{{ transaction.title }}</Heading>
+		<div slot="content" class="modal__content">
+			<Heading v-if="transaction" class="modal__content--title" :level="2">{{ transaction.from }}</Heading>
+			<ProgressBar class="modal__content--progress-bar" :progress="handleProgress(transaction)" :height="40" progressColor="var(--theme-primary)"/>
+			<div class="modal__content--progress-info">
+				<span>Solicitada</span>
+				<span>Processando</span>
+				<span>Concluída</span>
 			</div>
-			<ProgressBar class="modal__progress-bar" :progress="0.76" :height="40" :radius="false" progressColor="var(--theme-primary)"/>
-		</template>
+			<div class="modal__content-info">
+				<p class="modal__content-info--from">Transferido de</p>
+				<BaseText size="sm">{{ transaction.from }}</BaseText>
+				<p class="modal__content-info--to">Para</p>
+				<BaseText size="sm">{{ transaction.to }}</BaseText>
+			</div>
+		</div>
 	</BaseModal>
 </template>
 
@@ -39,6 +48,16 @@ export default class Modal extends Vue {
 
 	@Emit('close-modal')
 	private closeModal() {/**/}
+
+	private handleProgress(transaction: ITransaction): number {
+		const status = {
+			'processed': 0.30,
+			'processing': 0.50,
+			'created': 1
+		}
+
+		return status[transaction.status];
+	}
 }
 </script>
 
@@ -56,7 +75,7 @@ export default class Modal extends Vue {
 
 .modal__heading--close {
 	position: absolute;
-	right: 10px;
+	right: 25px;
 	top: calc(50% - 10px);
 	cursor: pointer;
 }
@@ -64,15 +83,43 @@ export default class Modal extends Vue {
 .modal__content {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;	
+	align-items: center;
+	width: 752px;
+	margin: 0 auto;
 }
 
 .modal__content--title {
 	margin-top: 54px;
 }
 
-.modal__progress-bar {
+.modal__content--progress-bar {
 	margin-top: 74px;
+	width: 752px;
+	margin: 74px auto 0 auto;
 }
 
+.modal__content--progress-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 12px;
+	font-family: 'Warren Text';
+	width: 100%;
+}
+
+.modal__content-info {
+	font-size: 23px;
+	line-height: 32px;
+	font-weight: 700;
+	margin-top: 30px;
+	width: 100%;
+}
+
+.modal__content-info--from, .modal__content-info--to {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	padding-bottom: 12px;
+	display: block;
+}
 
 </style>
