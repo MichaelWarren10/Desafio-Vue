@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { DataTable, BaseIcon, Grid } from '@warrenbrasil/nebraska-web';
 import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
@@ -50,12 +50,8 @@ import Modal from '@/modules/home/components/modal/modal.vue'
 })
 export default class Transactions extends Vue {
 	private service = new HomeService()
-
-	@Watch('selectedTransaction')
 	private isModalOpen = false;
-
-	private selectedTransaction?: ITransaction;
-
+	private selectedTransaction: ITransaction = {} as ITransaction;
 	private columns = [
 		{
 			type: 'actions',
@@ -159,7 +155,6 @@ export default class Transactions extends Vue {
 
 	private toggleModal() {
 		this.isModalOpen = !this.isModalOpen;
-		console.log('entrou na função')
 	}
 }
 </script>

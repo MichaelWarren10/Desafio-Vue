@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { BaseModal, Heading, BaseIcon, BaseText, ProgressBar } from '@warrenbrasil/nebraska-web'
 import { PropType } from 'vue';
 import { ITransaction } from '../../interfaces/transaction';
@@ -38,7 +38,7 @@ export default class Modal extends Vue {
 	private  transaction!: ITransaction;
 
 	@Emit('close-modal')
-	private closeModal() { }
+	private closeModal() {/**/}
 }
 </script>
 
