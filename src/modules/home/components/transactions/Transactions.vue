@@ -11,12 +11,16 @@
 			:load-data="getData" 
 			:data-params="{ filteredtransactions }"
 			show-divider />
-		<Modal :is-open="true" />
+		<Modal 
+			v-if="transactions.length"
+			:is-open="isModalOpen" 
+			:transaction="selectedTransaction" 
+			@close-modal="toggleModal"/>
 	</div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { DataTable, BaseIcon, Grid } from '@warrenbrasil/nebraska-web';
 import { HomeService } from '../../services/index';
 import { ITransaction } from '../../interfaces/transaction';
@@ -46,11 +50,16 @@ import Modal from '@/modules/home/components/modal/modal.vue'
 })
 export default class Transactions extends Vue {
 	private service = new HomeService()
+
+	@Watch('selectedTransaction')
+	private isModalOpen = false;
+
+	private selectedTransaction?: ITransaction;
+
 	private columns = [
 		{
-			label: '',
-			component: IconEye,
-			align: 'center',
+			type: 'actions',
+			getter: this.getActions
 		},
 		{
 			label: 'Data',
@@ -84,6 +93,7 @@ export default class Transactions extends Vue {
 			checked: false
 		}
 	]
+	
 	private selectedOptions: IDropdown[] = [];
 	private transactions: ITransaction[] = []; 
 	private filteredtransactions: ITransaction[] = [];
@@ -109,6 +119,20 @@ export default class Transactions extends Vue {
 		return convertNumbertoBrazilian(amount);
 	}
 
+	private getActions(row: ITransaction) {
+		return {
+			options: [
+				{
+					text: 'Visualizar transação',
+					action: () => {
+						this.selectedTransaction = row
+						this.toggleModal()
+					}
+				}
+			]
+		}
+	}
+
 	private setOptions(options: IDropdown[], selectedOptions: IDropdown[]): void {
 		this.options = options;
 		this.selectedOptions = selectedOptions;
@@ -131,6 +155,11 @@ export default class Transactions extends Vue {
 		this.setOptions(options, selectedOptions);
 
 		this.filteredtransactions = combinedFilter(selectedOptions, items, text);
+	}
+
+	private toggleModal() {
+		this.isModalOpen = !this.isModalOpen;
+		console.log('entrou na função')
 	}
 }
 </script>
