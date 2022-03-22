@@ -1,13 +1,11 @@
 <template>
 	<BaseModal :is-open="isOpen" size="lg">
-		<template v-slot:header>
-			<div class="modal__heading">
-				<BaseText size="md" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
-				<BaseIcon class="modal__heading--close" icon="ic_cancel" width="20px" height="20px" @click.native="closeModal"/>
-			</div>
-		</template>
-		<div slot="content" class="modal__content">
-			<Heading v-if="transaction" class="modal__content--title" :level="2">{{ transaction.title }}</Heading>
+		<section slot="header" class="modal__heading">
+			<BaseText size="md" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
+			<BaseIcon class="modal__heading--close" icon="ic_cancel" width="20px" height="20px" @click.native="closeModal"/>
+		</section>
+		<section slot="content" class="modal__content">
+			<Heading class="modal__content--title" :level="2">{{ transaction.title }}</Heading>
 			<ProgressBar class="modal__content--progress-bar" :progress="handleProgress(transaction)" :height="40" progressColor="var(--theme-primary)"/>
 			<div class="modal__content--progress-info">
 				<span>Solicitada</span>
@@ -16,11 +14,17 @@
 			</div>
 			<div class="modal__content-info">
 				<p class="modal__content-info--from">Transferido de</p>
-				<BaseText size="sm">{{ transaction.from }}</BaseText>
+				<div class="modal__content-info-wrapper-from">
+					<BaseText size="sm" class="modal__content-info-wrapper--label">{{ transaction.from }}</BaseText>
+					<BaseText size="sm" class="modal__content-info-wrapper--value">{{ transaction.amount }}</BaseText>
+				</div>
 				<p class="modal__content-info--to">Para</p>
-				<BaseText size="sm">{{ transaction.to }}</BaseText>
+				<div class="modal__content-info-wrapper-to">
+					<BaseText size="sm" class="modal__content-info-wrapper--label">{{ transaction.to }}</BaseText>
+					<BaseText size="sm" class="modal__content-info-wrapper--value">{{ transaction.amount }}</BaseText>
+				</div>
 			</div>
-		</div>
+		</section>
 	</BaseModal>
 </template>
 
@@ -120,6 +124,20 @@ export default class Modal extends Vue {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	padding-bottom: 12px;
 	display: block;
+}
+
+.modal__content-info-wrapper-from {
+	margin-bottom: 20px;
+}
+
+.modal__content-info-wrapper-from, .modal__content-info-wrapper-to {
+	display: flex;
+	justify-content: space-between;
+}
+
+.modal__content-info-wrapper--label, .modal__content-info-wrapper--value {
+	margin-top: 12px;
+	display: inline-block;
 }
 
 </style>
