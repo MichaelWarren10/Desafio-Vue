@@ -1,8 +1,8 @@
 <template>
-	<BaseModal :is-open="isOpen" size="lg">
+	<BaseModal :is-open="isOpen" size="md">
 		<section slot="header" class="modal__heading">
-			<BaseText size="md" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
-			<BaseIcon class="modal__heading--close" icon="ic_cancel" width="20px" height="20px" @click.native="closeModal"/>
+			<BaseText size="sm" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
+			<BaseIcon class="modal__heading--close" icon="ic_cancel" width="40px" height="40px" @click.native="closeModal"/>
 		</section>
 		<section slot="content" class="modal__content">
 			<Heading class="modal__content--title" :level="2">{{ transaction.title }}</Heading>
@@ -75,12 +75,13 @@ export default class Modal extends Vue {
 	justify-content: center;
 	padding: 23px 0;
 	border-bottom: 1px solid var(--divider-primary);
+	font-weight: 700;
 }
 
 .modal__heading--close {
 	position: absolute;
 	right: 25px;
-	top: calc(50% - 10px);
+	top: calc(50% - 20px);
 	cursor: pointer;
 }
 
@@ -91,6 +92,7 @@ export default class Modal extends Vue {
 	align-items: center;
 	width: 752px;
 	margin: 0 auto;
+	padding-bottom: 30px;
 }
 
 .modal__content--title {
@@ -98,9 +100,12 @@ export default class Modal extends Vue {
 }
 
 .modal__content--progress-bar {
-	margin-top: 74px;
 	width: 752px;
-	margin: 74px auto 0 auto;
+	margin: 20px auto 0 auto;
+}
+
+::v-deep .wrapper.size-md {
+	max-width: 994px;
 }
 
 .modal__content--progress-info {
