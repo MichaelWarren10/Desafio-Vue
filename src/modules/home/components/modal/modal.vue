@@ -16,12 +16,12 @@
 				<p class="modal__content-info--from">Transferido de</p>
 				<div class="modal__content-info-wrapper-from">
 					<BaseText size="sm" class="modal__content-info-wrapper--label">{{ transaction.from }}</BaseText>
-					<BaseText size="sm" class="modal__content-info-wrapper--value">{{ transaction.amount }}</BaseText>
+					<BaseText size="sm" class="modal__content-info-wrapper--value">{{ translateAmount(transaction.amount) }}</BaseText>
 				</div>
 				<p class="modal__content-info--to">Para</p>
 				<div class="modal__content-info-wrapper-to">
 					<BaseText size="sm" class="modal__content-info-wrapper--label">{{ transaction.to }}</BaseText>
-					<BaseText size="sm" class="modal__content-info-wrapper--value">{{ transaction.amount }}</BaseText>
+					<BaseText size="sm" class="modal__content-info-wrapper--value">{{ translateAmount(transaction.amount) }}</BaseText>
 				</div>
 			</div>
 		</section>
@@ -33,6 +33,7 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { BaseModal, Heading, BaseIcon, BaseText, ProgressBar } from '@warrenbrasil/nebraska-web'
 import { PropType } from 'vue';
 import { ITransaction } from '../../interfaces/transaction';
+import { convertNumbertoBrazilian } from '@/helpers/convertNumber';
 
 @Component({
 	components: {
@@ -61,6 +62,10 @@ export default class Modal extends Vue {
 		}
 
 		return status[transaction.status];
+	}
+
+	private translateAmount(num: number): string {
+		return convertNumbertoBrazilian(num);
 	}
 }
 </script>
