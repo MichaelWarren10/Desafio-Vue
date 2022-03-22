@@ -90,7 +90,7 @@ export default class Modal extends Vue {
 	justify-content: center;
 	flex-direction: column;	
 	align-items: center;
-	width: 752px;
+	max-width: 752px;
 	margin: 0 auto;
 	padding-bottom: 30px;
 }
@@ -100,7 +100,7 @@ export default class Modal extends Vue {
 }
 
 .modal__content--progress-bar {
-	width: 752px;
+	width: 100%;
 	margin: 20px auto 0 auto;
 }
 
@@ -145,4 +145,9 @@ export default class Modal extends Vue {
 	display: inline-block;
 }
 
+@media (max-width: 768px) {
+	.modal__content {
+		padding: 0 10px 30px;
+	}
+}
 </style>
