@@ -64,8 +64,11 @@ export default class Modal extends Vue {
 		return status[transaction.status];
 	}
 
-	private translateAmount(num: number): string {
-		return convertNumbertoBrazilian(num);
+	private translateAmount(value: number): string {
+		if (value) {
+			return convertNumbertoBrazilian(value);
+		}
+		return '';
 	}
 }
 </script>
