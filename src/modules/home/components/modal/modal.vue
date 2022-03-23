@@ -1,8 +1,10 @@
 <template>
-	<BaseModal :is-open="isOpen" size="md">
+	<BaseModal :is-open="isOpen" size="md" data-testid="modal">
 		<section slot="header" class="modal__heading">
 			<BaseText size="sm" class="modal__heading--title">MOVIMENTAÇÃO</BaseText>
-			<BaseIcon class="modal__heading--close" icon="ic_cancel" width="40px" height="40px" @click.native="closeModal"/>
+			<button type="button" @click="closeModal" title="Fechar">
+				<BaseIcon class="modal__heading--close" icon="ic_cancel" width="40px" height="40px" />
+			</button>
 		</section>
 		<section slot="content" class="modal__content">
 			<Heading class="modal__content--title" :level="2">{{ transaction.title }}</Heading>

@@ -10,7 +10,7 @@ export const mockTransaction: ITransaction[] = [
     status: "created",
     title: "Resgate",
     to: "Conta Warren",
-    _hash: "saiouft",
+    _hash: "1",
   },
   {
     amount: 148856.29,
@@ -21,7 +21,7 @@ export const mockTransaction: ITransaction[] = [
     status: "created",
     title: "Depósito",
     to: "Conta Warren",
-    _hash: "saiouft",
+    _hash: "2",
   },
   {
     amount: 25092.8,
@@ -32,7 +32,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processed",
     title: "Movimentação interna",
     to: "Trade",
-    _hash: "saiouft",
+    _hash: "3",
   },
   {
     amount: 172513.46,
@@ -43,7 +43,7 @@ export const mockTransaction: ITransaction[] = [
     status: "created",
     title: "Movimentação interna",
     to: "Conta Warren",
-    _hash: "saiouft",
+    _hash: "4",
   },
   {
     amount: 51668.85,
@@ -54,7 +54,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processing",
     title: "Depósito",
     to: "Conta Warren",
-    _hash: "saiouft",
+    _hash: "5",
   },
   {
     amount: 183204.02,
@@ -65,7 +65,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processed",
     title: "Resgate",
     to: "Trade",
-    _hash: "saiouft",
+    _hash: "6",
   },
   {
     amount: 152984.78,
@@ -76,7 +76,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processing",
     title: "Resgate",
     to: "Férias",
-    _hash: "saiouft",
+    _hash: "7",
   },
   {
     amount: 23743.69,
@@ -87,7 +87,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processed",
     title: "Movimentação interna",
     to: "Férias",
-    _hash: "saiouft",
+    _hash: "8",
   },
   {
     amount: 33122.13,
@@ -98,7 +98,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processing",
     title: "Resgate",
     to: "Aposentadoria",
-    _hash: "saiouft",
+    _hash: "9",
   },
   {
     amount: 177793.22,
@@ -109,7 +109,7 @@ export const mockTransaction: ITransaction[] = [
     status: "processing",
     title: "Resgate",
     to: "Férias",
-    _hash: "saiouft",
+    _hash: "10",
   },
   {
     amount: 79943.53,
@@ -120,6 +120,6 @@ export const mockTransaction: ITransaction[] = [
     status: "created",
     title: "Resgate",
     to: "Trade",
-    _hash: "saiouft",
+    _hash: "11",
   },
 ];
