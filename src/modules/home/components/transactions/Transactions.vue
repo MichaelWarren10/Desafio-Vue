@@ -54,10 +54,6 @@ export default class Transactions extends Vue {
 	private selectedTransaction: ITransaction = {} as ITransaction;
 	private columns = [
 		{
-			type: 'actions',
-			getter: this.getActions
-		},
-		{
 			label: 'Data',
 			getter: translateDate,
 			sort: 'date'
@@ -71,7 +67,10 @@ export default class Transactions extends Vue {
 		}, {
 			label: 'Situação',
 			getter: translateStatus
-		}
+		}, {
+			type: 'actions',
+			getter: this.getActions
+		},
 	]
 
 	private options: IDropdown[] = [
@@ -200,5 +199,9 @@ export default class Transactions extends Vue {
 	.wrapper__table {
 		overflow-x: scroll;
 	}
+}
+
+::v-deep .table-row > .cell:last-child {
+	vertical-align: middle;
 }
 </style>
