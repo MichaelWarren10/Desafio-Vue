@@ -1,5 +1,5 @@
 import Modal from "./modal.vue";
-import { fireEvent, render } from '@testing-library/vue';
+import { fireEvent, render, screen } from "@testing-library/vue";
 import { mockTransaction } from '../../mocks/mock-transactions'
 import '@testing-library/jest-dom';
 
@@ -19,6 +19,16 @@ describe("<Modal>", () => {
 
 		expect(getByTestId("modal")).toBeInTheDocument();
   });
+
+	it("should not render component", () => {
+		makeWrapper({
+			isOpen: false,
+			transaction: mockTransaction[0]
+		});
+		const mobal = screen.queryByTestId("modal");
+
+    expect(mobal).not.toBeInTheDocument();
+	})
 
 	it("should emit closeModal", async () => {
     const { emitted, getByRole } = makeWrapper(propsData);
