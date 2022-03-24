@@ -2,14 +2,14 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
     "eslint.validate": [ "vue", "javascript", "javascriptreact", "typescript"],
     "jest.autoEnable": false,
     "jest.pathToJest": "npm run test:unit --",
     "vetur.experimental.templateInterpolationService": true,
     "vetur.validation.template": true,
     "vetur.validation.templateProps": true,
-		"workbench.iconTheme": "vscode-icons",
+		"workbench.iconTheme": "material-icon-theme",
     "javascript.updateImportsOnFileMove.enabled": "always",
     "explorer.confirmDragAndDrop": false,
     "window.zoomLevel": 1,

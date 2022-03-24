@@ -10,4 +10,4 @@ export interface ITransaction {
   _hash: string;
 }
 
-export type IStatus =	"created" | "processed" | "processing";
+export type IStatus = 'created' | 'processed' | 'processing';

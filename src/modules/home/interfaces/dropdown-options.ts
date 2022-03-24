@@ -1,5 +1,5 @@
 export interface IDropdown {
   text: string;
-	argument: string;
+  argument: string;
   checked: boolean;
 }
