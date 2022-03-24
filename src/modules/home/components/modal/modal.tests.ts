@@ -25,9 +25,9 @@ describe("<Modal>", () => {
 			isOpen: false,
 			transaction: mockTransaction[0]
 		});
-		const mobal = screen.queryByTestId("modal");
+		const modal = screen.queryByTestId("modal");
 
-    expect(mobal).not.toBeInTheDocument();
+    expect(modal).not.toBeInTheDocument();
 	})
 
 	it("should emit closeModal", async () => {
