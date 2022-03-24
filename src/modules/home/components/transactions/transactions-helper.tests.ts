@@ -27,6 +27,12 @@ describe('transactions-helper', () => {
 
       expect(result).toHaveLength(2);
     });
+
+		it("should return transactions", () => {
+			const result = helper.searchFilter("", mockTransaction);
+
+      expect(result).toEqual(mockTransaction);
+		})
 	});
 
 	describe("checkboxFilter function", () => {
