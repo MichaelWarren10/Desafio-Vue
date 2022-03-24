@@ -8,20 +8,20 @@ const propsData = {
   transaction: mockTransaction[0]
 };
 
-const makeWrapper = (propsData: any) =>
+const renderModal = (propsData: any) =>
   render(Modal, {
     propsData
   });
 
 describe('<Modal>', () => {
   it('should render component', () => {
-    const { getByTestId } = makeWrapper(propsData);
+    const { getByTestId } = renderModal(propsData);
 
     expect(getByTestId('modal')).toBeInTheDocument();
   });
 
   it('should not render component', () => {
-    makeWrapper({
+    renderModal({
       isOpen: false,
       transaction: mockTransaction[0]
     });
@@ -31,7 +31,7 @@ describe('<Modal>', () => {
   });
 
   it('should emit closeModal', async () => {
-    const { emitted, getByRole } = makeWrapper(propsData);
+    const { emitted, getByRole } = renderModal(propsData);
     const closeButton = getByRole('button', { name: 'Fechar' });
     await fireEvent.click(closeButton);
 
@@ -39,19 +39,19 @@ describe('<Modal>', () => {
   });
 
   it('should get from as Aposentadoria text on modal', () => {
-    const { findByText } = makeWrapper(propsData);
+    const { findByText } = renderModal(propsData);
 
     expect(findByText(/Aposentadoria/gi)).toBeTruthy();
   });
 
   it('should get to as Conta Warren text on modal', () => {
-    const { findByText } = makeWrapper(propsData);
+    const { findByText } = renderModal(propsData);
 
     expect(findByText(/Conta Warren/gi)).toBeTruthy();
   });
 
   it('should get amount as R$ 2.078,66 text on modal', () => {
-    const { findByText } = makeWrapper(propsData);
+    const { findByText } = renderModal(propsData);
 
     expect(findByText('R$\xa02.078,66')).toBeTruthy();
   });
