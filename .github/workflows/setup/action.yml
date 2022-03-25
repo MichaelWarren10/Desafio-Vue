@@ -1,9 +1,20 @@
 name: 'Sets project up'
 description: 'Configura a versão do Node, permissões e instala dependências'
 
+inputs:
+  token:
+    description: The Github PAT
+    required: true
+
 runs:
   using: "composite"
   steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        token: ${{ inputs.token }}
+        submodules: 'true'
+
     - name: Read Node.js version
       run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
       id: nvm
@@ -13,6 +24,11 @@ runs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+
+    - name: Create ~/.npmrc file (for private packages)
+      run: echo //npm.pkg.github.com/:_authToken=${{ inputs.token }} >> ~/.npmrc |
+        echo @warrenbrasil:registry=https://npm.pkg.github.com/ >> ~/.npmrc
+      shell: bash
 
     - name: Restore yarn cache
       uses: actions/cache@v1
