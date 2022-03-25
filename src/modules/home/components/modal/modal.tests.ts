@@ -1,5 +1,5 @@
 import Modal from './modal.vue';
-import { fireEvent, render, screen } from '@testing-library/vue';
+import { fireEvent, render } from '@testing-library/vue';
 import { mockTransaction } from '../../mocks/mock-transactions';
 import '@testing-library/jest-dom';
 
@@ -21,11 +21,11 @@ describe('<Modal>', () => {
   });
 
   it('should not render component', () => {
-    renderModal({
+    const { queryByTestId } = renderModal({
       isOpen: false,
       transaction: mockTransaction[0]
     });
-    const modal = screen.queryByTestId('modal');
+    const modal = queryByTestId('modal');
 
     expect(modal).not.toBeInTheDocument();
   });
