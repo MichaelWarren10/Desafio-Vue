@@ -9,7 +9,7 @@
     "vetur.experimental.templateInterpolationService": true,
     "vetur.validation.template": true,
     "vetur.validation.templateProps": true,
-		"workbench.iconTheme": "vscode-icons",
+		"workbench.iconTheme": "material-icon-theme",
     "javascript.updateImportsOnFileMove.enabled": "always",
     "explorer.confirmDragAndDrop": false,
     "window.zoomLevel": 1,
