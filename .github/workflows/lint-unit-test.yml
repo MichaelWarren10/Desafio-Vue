@@ -4,6 +4,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
       - name: Setup project
         uses: ./.github/workflows/setup/
 
@@ -13,6 +16,9 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
       - name: Setup project
         uses: ./.github/workflows/setup/
 
