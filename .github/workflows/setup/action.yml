@@ -9,12 +9,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-      with:
-        token: ${{ inputs.token }}
-        submodules: 'true'
-
     - name: Read Node.js version
       run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
       id: nvm
