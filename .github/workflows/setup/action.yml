@@ -1,6 +1,11 @@
 name: 'Sets project up'
 description: 'Configura a versão do Node, permissões e instala dependências'
 
+inputs:
+  token:
+    description: The Github PAT
+    required: true
+
 runs:
   using: "composite"
   steps:
