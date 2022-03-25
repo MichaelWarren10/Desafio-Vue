@@ -1,5 +1,7 @@
 name: Run Unit Tests and Lint Files
+
 on: push
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -14,7 +16,6 @@ jobs:
         uses: ./.github/workflows/setup/
         with:
           token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
-          submodules: 'true'
 
       - name: Lint
         run: yarn lint
@@ -32,7 +33,6 @@ jobs:
         uses: ./.github/workflows/setup/
         with:
           token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
-          submodules: 'true'
 
       - name: Unit tests
         run: yarn test
