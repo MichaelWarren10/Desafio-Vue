@@ -12,7 +12,7 @@
 			:data-params="{ filteredtransactions }"
 			show-divider />
 		<Modal 
-			v-if="transactions.length"
+			v-if="selectedTransaction"
 			:is-open="isModalOpen" 
 			:transaction="selectedTransaction" 
 			@close-modal="toggleModal"/>
@@ -51,7 +51,7 @@ import Modal from '@/modules/home/components/modal/modal.vue'
 export default class Transactions extends Vue {
 	private service = new HomeService()
 	private isModalOpen = false;
-	private selectedTransaction: ITransaction = {} as ITransaction;
+	private selectedTransaction: ITransaction | null = null
 	private columns = [
 		{
 			label: 'Data',
