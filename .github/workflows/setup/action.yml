@@ -12,7 +12,7 @@ runs:
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
-        token: ${{ inputs.WARREN }}
+        token: ${{ inputs.token }}
         submodules: 'true'
 
     - name: Read Node.js version
