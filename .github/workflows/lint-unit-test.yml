@@ -6,11 +6,6 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: webfactory/ssh-agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
@@ -27,11 +22,6 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
-      - name: webfactory/ssh-agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
