@@ -5,22 +5,17 @@ on: push
 jobs:
   lint:
     runs-on: ubuntu-latest
-    steps:
-      - name: webfactory/ssh-agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Git checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Lint
         run: yarn lint
@@ -31,13 +26,13 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Unit tests
         run: yarn test
