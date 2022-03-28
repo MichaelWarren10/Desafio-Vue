@@ -9,10 +9,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Use personal token
-      env:
-        token: ${{ secrets.WARREN }}
-
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
