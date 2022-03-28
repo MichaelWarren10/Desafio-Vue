@@ -13,8 +13,6 @@ jobs:
 
       - name: Checkout repo
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Setup project
         uses: ./.github/workflows/setup/
@@ -33,8 +31,6 @@ jobs:
 
       - name: Checkout repo
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Setup project
         uses: ./.github/workflows/setup/

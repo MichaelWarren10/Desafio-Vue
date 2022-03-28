@@ -1,19 +1,16 @@
 name: 'Sets project up'
 description: 'Configura a versão do Node, permissões e instala dependências'
 
-inputs:
-  token:
-    description: The Github PAT
-    required: true
-
 runs:
   using: "composite"
   steps:
+    - name: webfactory/ssh-agent
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - name: Checkout repo
       uses: actions/checkout@v2
-      with:
-        token: ${{ inputs.token }}
-        submodules: 'true'
 
     - name: Read Node.js version
       run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
