@@ -1,13 +1,18 @@
 name: 'Sets project up'
 description: 'Configura a versão do Node, permissões e instala dependências'
 
+inputs:
+  token:
+    description: The Github PAT
+    required: true
+
 runs:
   using: "composite"
   steps:
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
-        token: ${{ INPUT_TOKEN }}
+        token: ${{ inputs.token }}
         submodules: 'true'
 
     - name: Read Node.js version
