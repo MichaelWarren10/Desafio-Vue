@@ -13,7 +13,6 @@ jobs:
 
       - name: Setup project
         uses: ./.github/workflows/setup/
-        with:
 
       - name: Lint
         run: yarn lint
