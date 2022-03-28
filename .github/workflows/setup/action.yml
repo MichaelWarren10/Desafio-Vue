@@ -39,7 +39,5 @@ runs:
           ${{ runner.os }}-yarn
 
     - name: Installing application dependencies
-      env:
-        token: ${{ secrets.SSH_PRIVATE_KEY }}
       run: yarn install
       shell: bash

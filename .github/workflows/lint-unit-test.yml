@@ -13,8 +13,8 @@ jobs:
 
       - name: Setup project
         uses: ./.github/workflows/setup/
-        with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+        env:
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Lint
         run: yarn lint
