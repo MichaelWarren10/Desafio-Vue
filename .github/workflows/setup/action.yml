@@ -12,7 +12,7 @@ runs:
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
-        token: ${{ inputs.SSH_PRIVATE_KEY }}
+        token: ${{ inputs.token }}
         submodules: 'true'
 
     - name: Read Node.js version
@@ -37,7 +37,6 @@ runs:
         key: ${{ runner.os }}-node-${{ steps.nvm.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn
-
     - name: Installing application dependencies
       run: yarn install
       shell: bash

@@ -9,13 +9,13 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
 
       - name: Lint
         run: yarn lint
@@ -26,13 +26,13 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.WARRENBRASIL_GITHUB_PAT }}
 
       - name: Unit tests
         run: yarn test
