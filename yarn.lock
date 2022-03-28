@@ -2083,7 +2083,7 @@
   resolved "https://npm.pkg.github.com/download/@warrenbrasil/nebraska-tokens-web/3.17.0/6ef7fa1a4bf3d7a075c43fcd233fa7fb11d57f92b90890f3976ec382c870dc90"
   integrity sha512-rL3xYBfjxvARhpkU7P02LtnBUXzg+H3WPBuckSVdv0oya+oALUoenxYnSNj4hLcc359OF7+yOxadJnvazUcd+Q==
 
-"@warrenbrasil/nebraska-web@^4.10.1":
+"@warrenbrasil/nebraska-web@^4.19.3":
   version "4.19.3"
   resolved "https://npm.pkg.github.com/download/@warrenbrasil/nebraska-web/4.19.3/a6eb909b63a603f1a02512818b57d575be2fa9bc91dff5f31469d620d039e8aa#d07586ef23a4209733116f9e83885940f3b714e3"
   integrity sha512-q32dwjleGN2pPlEBz/qQj5fq7bwzcTpxNBMJpc1lfSCz3UVIatfd6ZXoxkCE7Kx/6c1N9DNfbu2mRN7qa5qMZw==
