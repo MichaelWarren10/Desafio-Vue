@@ -6,7 +6,8 @@ export interface ITransaction {
   amount: number;
   date: string;
   from: string;
-	to: string;
+  to: string;
+  _hash: string;
 }
 
-export type IStatus =	"created" | "processed" | "processing";
+export type IStatus = 'created' | 'processed' | 'processing';

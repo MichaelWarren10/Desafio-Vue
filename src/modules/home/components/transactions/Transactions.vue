@@ -11,6 +11,11 @@
 			:load-data="getData" 
 			:data-params="{ filteredtransactions }"
 			show-divider />
+		<Modal 
+			v-if="selectedTransaction"
+			:is-open="isModalOpen" 
+			:transaction="selectedTransaction" 
+			@close-modal="toggleModal"/>
 	</div>
 </template>
 
@@ -29,6 +34,8 @@ import { IDropdown } from '../../interfaces/dropdown-options';
 import { combinedFilter } from './transactions-helper';
 import { IFilterTextEmiter } from '../../interfaces/filter-by-text';
 import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
+import Modal from '@/modules/home/components/modal/modal.vue'
+
 
 @Component({
 	components: {
@@ -37,17 +44,15 @@ import { IFlterCheckboxEmiter } from '../../interfaces/filter-by-checkbox';
 		IconEye,
 		Search,
 		Grid,
-		DropdownFilter
+		DropdownFilter,
+		Modal
 	}
 })
 export default class Transactions extends Vue {
 	private service = new HomeService()
+	private isModalOpen = false;
+	private selectedTransaction: ITransaction | null = null
 	private columns = [
-		{
-			label: '',
-			component: IconEye,
-			align: 'center',
-		},
 		{
 			label: 'Data',
 			getter: translateDate,
@@ -62,7 +67,10 @@ export default class Transactions extends Vue {
 		}, {
 			label: 'Situação',
 			getter: translateStatus
-		}
+		}, {
+			type: 'actions',
+			getter: this.getActions
+		},
 	]
 
 	private options: IDropdown[] = [
@@ -80,6 +88,7 @@ export default class Transactions extends Vue {
 			checked: false
 		}
 	]
+	
 	private selectedOptions: IDropdown[] = [];
 	private transactions: ITransaction[] = []; 
 	private filteredtransactions: ITransaction[] = [];
@@ -105,6 +114,20 @@ export default class Transactions extends Vue {
 		return convertNumbertoBrazilian(amount);
 	}
 
+	private getActions(row: ITransaction) {
+		return {
+			options: [
+				{
+					text: 'Visualizar transação',
+					action: () => {
+						this.selectedTransaction = row
+						this.toggleModal()
+					}
+				}
+			]
+		}
+	}
+
 	private setOptions(options: IDropdown[], selectedOptions: IDropdown[]): void {
 		this.options = options;
 		this.selectedOptions = selectedOptions;
@@ -127,6 +150,10 @@ export default class Transactions extends Vue {
 		this.setOptions(options, selectedOptions);
 
 		this.filteredtransactions = combinedFilter(selectedOptions, items, text);
+	}
+
+	private toggleModal() {
+		this.isModalOpen = !this.isModalOpen;
 	}
 }
 </script>
@@ -172,5 +199,9 @@ export default class Transactions extends Vue {
 	.wrapper__table {
 		overflow-x: scroll;
 	}
+}
+
+::v-deep .table-row > .cell:last-child {
+	vertical-align: middle;
 }
 </style>
