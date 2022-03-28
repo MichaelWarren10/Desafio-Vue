@@ -4,9 +4,6 @@ description: 'Configura a versão do Node, permissões e instala dependências'
 runs:
   using: "composite"
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-
     - name: Read Node.js version
       run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
       id: nvm
