@@ -8,14 +8,9 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
-          submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
-        with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Lint
         run: yarn lint
@@ -25,14 +20,9 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
-          submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
-        with:
-          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Unit tests
         run: yarn test
