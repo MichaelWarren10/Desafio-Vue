@@ -9,6 +9,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    name: Use personal token
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FIRST_NAME: Mona
+        LAST_NAME: Octocat
+
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
