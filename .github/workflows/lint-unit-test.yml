@@ -27,6 +27,10 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
+      - name: Use personal token
+        env:
+          token: ${{ secrets.WARREN }}
+
       - name: webfactory/ssh-agent
         uses: webfactory/ssh-agent@v0.5.4
         with:
