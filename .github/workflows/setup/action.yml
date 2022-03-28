@@ -37,6 +37,9 @@ runs:
         key: ${{ runner.os }}-node-${{ steps.nvm.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-yarn
+
     - name: Installing application dependencies
+      env:
+        token: ${{ secrets.SSH_PRIVATE_KEY }}
       run: yarn install
       shell: bash
