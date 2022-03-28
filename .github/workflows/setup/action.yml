@@ -12,7 +12,7 @@ runs:
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
-        token: ${{ inputs.token }}
+        token: ${{ inputs.SSH_PRIVATE_KEY }}
         submodules: 'true'
 
     - name: Read Node.js version
