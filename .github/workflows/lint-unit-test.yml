@@ -8,11 +8,13 @@ jobs:
     steps:
       - name: webfactory/ssh-agent
         uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Setup project
         uses: ./.github/workflows/setup/
@@ -25,11 +27,14 @@ jobs:
     steps:
       - name: webfactory/ssh-agent
         uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
 
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Setup project
         uses: ./.github/workflows/setup/
