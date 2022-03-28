@@ -6,12 +6,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - actions/checkout@v2
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Git checkout
-        uses: actions/checkout@v2
 
       - name: Setup project
         uses: ./.github/workflows/setup/
@@ -22,12 +20,10 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
+      - actions/checkout@v2
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-      - name: Git checkout
-        uses: actions/checkout@v2
 
       - name: Setup project
         uses: ./.github/workflows/setup/
