@@ -9,12 +9,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN  }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN  }}
 
       - name: Lint
@@ -26,12 +28,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN  }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN  }}
 
       - name: Unit tests
