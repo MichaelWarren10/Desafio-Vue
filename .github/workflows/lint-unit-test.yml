@@ -9,15 +9,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.WARREN_PAT  }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
-        env: 
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.WARREN_PAT  }}
 
       - name: Lint
         run: yarn lint
@@ -28,13 +26,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.WARREN_PAT  }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.WARREN_PAT  }}
 
       - name: Unit tests
         run: yarn test
