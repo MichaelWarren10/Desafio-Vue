@@ -9,13 +9,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.SSH_PRIVATE_KEY  }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.SSH_PRIVATE_KEY  }}
 
       - name: Lint
         run: yarn lint
@@ -26,13 +26,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.SSH_PRIVATE_KEY  }}
           submodules: 'true'
 
       - name: Setup project
         uses: ./.github/workflows/setup/
         with:
-          token: ${{ secrets.GITHUB_TOKEN  }}
+          token: ${{ secrets.SSH_PRIVATE_KEY  }}
 
       - name: Unit tests
         run: yarn test
