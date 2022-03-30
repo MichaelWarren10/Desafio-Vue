@@ -1,0 +1,38 @@
+name: Linter and unit testing
+
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.WARREN_PAT  }}
+          submodules: 'true'
+
+      - name: Setup project
+        uses: ./.github/workflows/setup/
+        with:
+          token: ${{ secrets.WARREN_PAT  }}
+
+      - name: Lint
+        run: yarn lint
+
+  test-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.WARREN_PAT  }}
+          submodules: 'true'
+
+      - name: Setup project
+        uses: ./.github/workflows/setup/
+        with:
+          token: ${{ secrets.WARREN_PAT  }}
+
+      - name: Unit tests
+        run: yarn test
